@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nawaya Aqila - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: white;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.2);
+            color: var(--accent);
+        }
+        
+        section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            height: 250px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skills-column {
+            background: rgba(108, 92, 231, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .skills-column h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .skills-column h3 i {
+            font-size: 1.2rem;
+        }
+        
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-percent {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+            position: relative;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shine 2s infinite;
+        }
+        
+        .soft-skill-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(253, 121, 168, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .soft-skill-item:hover {
+            transform: translateX(5px);
+            background: rgba(253, 121, 168, 0.2);
+        }
+        
+        .soft-skill-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(100%) skewX(-15deg); }
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .portfolio-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header::before {
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="img/profile pict.jpg" alt="Profile Picture" class="profile-img floating">
+            <h1>Nawaya Aqila</h1>
+            <p class="tagline">Information System Student | Muhammadiyah University of North Sumatra</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/nawayaaqilaa" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/nawayaqila"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/nawayaqila"><i class="fab fa-github"></i></a>
+                <a href="https://wa.me/6283369859897"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </header>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Haii! Saya Nawaya Aqila Wibowo, mahasiswa Sistem Informasi di universitas Muhammadiyah Sumatera Utara.</p>
+                    <p>Saya sedang mempelajari dan melakukan pengembangan tentang Java dan Python, dengan keterampilan dalam teknologi web dan desain UI/UX. Saya menggabungkan keterampilan teknis dan pemikiran yang kreatif untuk menciptakan suatu hasil yang inovatif.</p>
+                    <p>Saya lebih senang ketika teman saya meminta saya untuk membantu mengajari mereka apa yang mereka tidak paham daripada meraka haru mengcopy hasil kerja saya </p>
+                </div>
+                <div class="about-image">
+                    <img src="img/pict.jpg" alt="About Image">
+                </div>
+            </div>
+        </section>
+        
+        <section id="biodata">
+            <h2>Biodata</h2>
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h3>Full Name</h3>
+                        <p>Nawaya Aqila Wibowo</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h3>Phone Number</h3>
+                        <p>+62 822-6985-9897</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3>Email</h3>
+                        <p>nawayaqila@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div>
+                        <h3>Place and Birth Date</h3>
+                        <p>Medan/November 1, 2005</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h3>Address</h3>
+                        <p>Medan, Indonesia</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h3>Education</h3>
+                        <p>Muhammadiyah University of North Sumatra</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skills-column">
+                    <h3><i class="fas fa-laptop-code"></i> Hard Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Java</span>
+                            <span class="skill-percent" data-target="50">0%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span class="skill-percent" data-target="80">0%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span class="skill-percent" data-target="80">0%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>UI/UX</span>
+                            <span class="skill-percent" data-target="90">0%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skills-column">
+                    <h3><i class="fas fa-brain"></i> Soft Skills</h3>
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-people-arrows"></i>
+                        </div>
+                        <div>
+                            <h4>Kolaborasi Tim</h4>
+                            <p>Berpengalaman dalam bekerja secara efektif dalam kelompok belajar</p>
+                        </div>
+                    </div>
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h4>Problem Solving</h4>
+                            <p>Keterampilan analisis yang kuat untuk tantangan teknis</p>
+                        </div>
+                    </div>
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            <h4>Komunikasi</h4>
+                            <p>Komunikasi teknis yang jelas dengan tim</p>
+                        </div>
+                    </div>
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Manajemen Waktu</h4>
+                            <p>Efektif dalam memenuhi tenggat waktu dan memprioritaskan tugas</p>
+                        </div>
+                    </div>
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div>
+                            <h4>Pembelajaran Berkelanjutan</h4>
+                            <p>Mau untuk belajar tentang hal hal yang baru</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="portfolio">
+            <h2>Portofolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="img/uiux (2).png" alt="Java Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>UI/UX Design</h3>
+                        <p>Mendesain tampilan menu login dengan menggunakan Figma</p>
+                        <a href="https://www.figma.com/proto/xiTtapLJrFHOGODxUV7JNC/tugas?node-id=4-2&p=f&t=PT99gpJ5rZkB5Q56-1&scaling=contain&content-scaling=fixed&page-id=0%3A1" target="_blank">View Portofolio</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="img/cafe.png" alt="Python Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Website Menu Cafe</h3>
+                        <p>Membuat tampilan website menu cafe sederhana menggunakan HTML dan CSS</p>
+                        <a href="cafe1.html" target="_blank">View Portofolio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 Nawaya Aqila. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate skill percentages and bars
+            const animateSkills = () => {
+                const skillPercentElements = document.querySelectorAll('.skill-percent');
+                const skillBars = document.querySelectorAll('.skill-progress');
+                
+                // Reset for re-animation
+                skillPercentElements.forEach(el => {
+                    el.textContent = '0%';
+                });
+                
+                skillBars.forEach(bar => {
+                    bar.style.width = '20';
+                });
+                
+                // Animate percentages
+                skillPercentElements.forEach(el => {
+                    const target = parseInt(el.getAttribute('data-target'));
+                    const duration = 1500; // 1.5 seconds
+                    const startTime = Date.now();
+                    
+                    const animate = () => {
+                        const currentTime = Date.now();
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        const currentValue = Math.floor(progress * target);
+                        el.textContent = currentValue + '%';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    };
+                    
+                    animate();
+                });
+                
+                // Animate bars
+                skillBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('style').match(/width: (\d+)%/)[1];
+                    setTimeout(() => {
+                        bar.style.width = targetWidth + '%';
+                    }, 100);
+                });
+            };
+            
+            // Intersection Observer for scroll animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateSkills();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Floating animation for profile image
+            const profileImg = document.querySelector('.profile-img');
+            profileImg.classList.add('floating');
+        });
+    </script>
+</body>
+</html>

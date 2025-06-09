@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Café Kami</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f1e9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        .header-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #6b4226;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #8c6a56;
+            font-size: 1.2rem;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: #6b4226;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4a762;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .item-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-grow: 1;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-text {
+            flex-grow: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #5a3921;
+        }
+        
+        .item-desc {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .item-price {
+            color: #b38b58;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .category-label {
+            background-color: #d4a762;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #8c6a56;
+            font-size: 0.9rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .item-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 150px;
+            }
+            
+            .item-price {
+                margin-left: 0;
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://i.pinimg.com/1200x/a1/8e/16/a18e1653db8a8a07d3c5332378091b5f.jpg" 
+                 alt="Interior Café" class="header-image">
+            <h1>Magie</h1>
+            <p class="subtitle">Menu Spesial Cafe Kami</p>
+        </header>
+        
+        <div class="menu-section">
+            <span class="category-label">Minuman Panas</span>
+            <h2>Kopi Spesial</h2>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                         alt="Espresso" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Espresso</div>
+                        <div class="item-desc">Shot kopi murni dengan crema tebal</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 25.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://i.pinimg.com/1200x/4a/d7/b7/4ad7b70efacd8390944568f16d1a3096.jpg" 
+                         alt="Americano" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Americano</div>
+                        <div class="item-desc">Espresso dengan air panas</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 28.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                         alt="Cappuccino" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Cappuccino</div>
+                        <div class="item-desc">Espresso dengan susu steamed dan foam</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 32.000</div>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <span class="category-label">Minuman Dingin</span>
+            <h2>Minuman Segar</h2>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://i.pinimg.com/1200x/1e/67/b7/1e67b7c6fcbd33018697e88fafdd8f7c.jpg" 
+                         alt="Iced Coffee" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Iced Coffee</div>
+                        <div class="item-desc">Kopi dingin dengan es batu</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 30.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://i.pinimg.com/736x/8f/b1/d5/8fb1d5410a11056dad5b9e39631bc8f7.jpg" 
+                         alt="Iced Latte" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Iced Latte</div>
+                        <div class="item-desc">Latte dingin dengan es batu</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 35.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                         alt="Frappé" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Frappé</div>
+                        <div class="item-desc">Minuman kopi blended dengan es</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 40.000</div>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <span class="category-label">Makanan</span>
+            <h2>Hidangan Ringan</h2>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://images.unsplash.com/photo-1620146344904-097a0002d797?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                         alt="Croissant" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Croissant</div>
+                        <div class="item-desc">Croissant original dengan mentega</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 25.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://images.unsplash.com/photo-1485451456034-3f9391c6f769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                         alt="Sandwich" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Sandwich</div>
+                        <div class="item-desc">Roti isi ayam dan sayuran segar</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 35.000</div>
+            </div>
+            
+            <div class="menu-item">
+                <div class="item-content">
+                    <img src="https://i.pinimg.com/736x/2b/ba/ec/2bbaec900521a24604c784aa1ce87019.jpg" 
+                         alt="Pancake" class="item-image">
+                    <div class="item-text">
+                        <div class="item-name">Pancake</div>
+                        <div class="item-desc">Pancake dengan ice cream dan madu</div>
+                    </div>
+                </div>
+                <div class="item-price">Rp 40.000</div>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <h2>Galeri Cafe Kami</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                     alt="Interior Café">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                     alt="Makanan Café">
+                <img src="https://images.unsplash.com/photo-1567880905822-56f8e06fe630?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                     alt="Area Outdoor">
+            </div>
+        </div>
+        
+        <footer>
+            <p>Jam Operasional: Senin-Minggu, 08:00 - 22:00</p>
+            <p>Alamat: Jl. DI. Panjaitan No. 123, Medan</p>
+            <p>Telepon: (021) 2345-6789</p>
+            <p>&copy; 2025 Magie. Seluruh hak cipta dilindungi.</p>
+        </footer>
+    </div>
+</body>
+</html>
