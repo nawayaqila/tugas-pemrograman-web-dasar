@@ -572,12 +572,10 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Animate skill percentages and bars
             const animateSkills = () => {
                 const skillPercentElements = document.querySelectorAll('.skill-percent');
                 const skillBars = document.querySelectorAll('.skill-progress');
                 
-                // Reset for re-animation
                 skillPercentElements.forEach(el => {
                     el.textContent = '0%';
                 });
@@ -586,7 +584,6 @@
                     bar.style.width = '20';
                 });
                 
-                // Animate percentages
                 skillPercentElements.forEach(el => {
                     const target = parseInt(el.getAttribute('data-target'));
                     const duration = 1500; // 1.5 seconds
@@ -608,7 +605,6 @@
                     animate();
                 });
                 
-                // Animate bars
                 skillBars.forEach(bar => {
                     const targetWidth = bar.getAttribute('style').match(/width: (\d+)%/)[1];
                     setTimeout(() => {
@@ -617,7 +613,6 @@
                 });
             };
             
-            // Intersection Observer for scroll animation
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -631,7 +626,6 @@
                 observer.observe(section);
             });
             
-            // Floating animation for profile image
             const profileImg = document.querySelector('.profile-img');
             profileImg.classList.add('floating');
         });
