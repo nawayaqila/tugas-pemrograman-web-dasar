@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis HTML</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --correct: #2ecc71; 
+            --wrong: #e74c3c; 
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        
+        .quiz-header {
+            padding: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+        }
+        
+        .quiz-title {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            flex-grow: 1;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: white;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .quiz-body {
+            padding: 25px;
+        }
+        
+        .question-container {
+            min-height: 120px;
+            margin-bottom: 20px;
+        }
+        
+        .question {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            padding: 15px;
+            background-color: var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .option.correct {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-color: var(--correct);
+            color: var(--dark);
+        }
+        
+        .option.incorrect {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-color: var(--wrong);
+            color: var(--dark);
+        }
+        
+        .option-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 25px;
+            height: 25px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+        
+        .option.selected .option-number {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .option.correct .option-number {
+            background-color: var(--correct);
+        }
+        
+        .option.incorrect .option-number {
+            background-color: var(--wrong);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        #prevBtn {
+            background-color: #e9ecef;
+            color: var(--dark);
+        }
+        
+        #prevBtn:hover {
+            background-color: #dee2e6;
+        }
+        
+        #nextBtn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        #nextBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        #nextBtn:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+        
+        .score-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .score-progress {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .feedback {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            margin-top: 20px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .timer {
+            background-color: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        @media (max-width: 600px) {
+            .quiz-header, .quiz-body {
+                padding: 20px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h2 class="quiz-title">Kuis Pengetahuan HTML</h2>
+            <div class="progress-container">
+                <span id="progressText">Pertanyaan 1 dari 5</span>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <span class="timer" id="timer">00:00</span>
+            </div>
+        </div>
+        
+        <div class="quiz-body" id="quizBody">
+            <div class="question-container">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn" id="prevBtn">Sebelumnya</button>
+                <button class="btn" id="nextBtn" disabled>Berikutnya</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="resultContainer">
+            <h2 class="result-title">Kuis Selesai!</h2>
+            <div class="score" id="score">0%</div>
+            <div class="score-bar">
+                <div class="score-progress" id="scoreProgress"></div>
+            </div>
+            <p class="feedback" id="feedback"></p>
+            <button class="btn restart-btn" id="restartBtn">Ulangi Kuis</button>
+        </div>
+    </div>
+    
+    <script>
+        // Pertanyaan kuis
+        const questions = [
+            {
+                question: "Apa kepanjangan dari HTML?",
+                options: ["Hyperlinks and Text Markup Language","Hyper Text Markup Language", "Home Tool Markup Language", "Hyper Text Makeup Language"],
+                answer: 1,
+                explanation: "HTML adalah singkatan dari Hyper Text Markup Language, yaitu bahasa markup untuk membuat struktur halaman web."
+            },
+            {
+                question: "Apa fungsi dari tag <div>?",
+                options: ["Membuat teks miring", "Membuat daftar dropdown", "Mengelompokkan elemen sebagai blok", "Menyisipkan video"],
+                answer: 2,
+                explanation: "<div> adalah container untuk mengelompokkan elemen dan memberi struktur."
+            },
+            {
+                question: "Tag apa yang digunakan untuk membuat tabel di HTML?",
+                options: ["<table>", "<tab>", "<tr>", "<td>"],
+                answer: 0,
+                explanation: "<table> adalah tag utama untuk tabel, diikuti <tr> (baris) dan <td> (sel)."
+            },
+            {
+                question: "Tag mana yang digunakan untuk membuat garis baru (line break)?",
+                options: ["<lb>", "<break>", "<br>", "newline"],
+                answer: 2,
+                explanation: "<br> adalah singkatan dari break, digunakan untuk garis baru."
+            },
+            {
+                question: "Manakah yang merupakan tag untuk membuat list bernomor (ordered list)?",
+                options: ["<ul>", "<ol>", "<li>", "<dl>"],
+                answer: 1,
+                explanation: "<ol> (ordered list) untuk list bernomor (1, 2, 3)."
+            }
+        ];
+        
+        // Elemen DOM
+        const quizBody = document.getElementById('quizBody');
+        const resultContainer = document.getElementById('resultContainer');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const scoreElement = document.getElementById('score');
+        const scoreProgress = document.getElementById('scoreProgress');
+        const feedbackElement = document.getElementById('feedback');
+        const restartBtn = document.getElementById('restartBtn');
+        const timerElement = document.getElementById('timer');
+        const explanationElement = document.getElementById('explanation');
+        
+        // State kuis
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedOption = null;
+        let answers = Array(questions.length).fill(null);
+        let seconds = 0;
+        let timer;
+        let quizCompleted = false;
+        
+        // Inisialisasi kuis
+        function initQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            selectedOption = null;
+            answers = Array(questions.length).fill(null);
+            seconds = 0;
+            quizCompleted = false;
+            
+            quizBody.style.display = 'block';
+            resultContainer.style.display = 'none';
+            
+            // Mulai timer
+            clearInterval(timer);
+            timer = setInterval(updateTimer, 1000);
+            
+            loadQuestion();
+        }
+        
+        // Memuat pertanyaan
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            
+            questionElement.textContent = question.question;
+            optionsElement.innerHTML = '';
+            explanationElement.style.display = 'none';
+            explanationElement.textContent = '';
+            
+            // Membuat opsi jawaban
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                
+                // Tandai jawaban yang sudah dipilih sebelumnya
+                if (answers[currentQuestion] === index) {
+                    optionElement.classList.add('selected');
+                    
+                    // Langsung tampilkan benar/salah setelah dipilih
+                    if (index === question.answer) {
+                        optionElement.classList.add('correct');
+                    } else {
+                        optionElement.classList.add('incorrect');
+                    }
+                }
+                
+                const optionNumber = document.createElement('div');
+                optionNumber.className = 'option-number';
+                optionNumber.textContent = String.fromCharCode(65 + index); // A, B, C, D
+                
+                const optionText = document.createElement('div');
+                optionText.className = 'option-text';
+                optionText.textContent = option;
+                
+                optionElement.appendChild(optionNumber);
+                optionElement.appendChild(optionText);
+                
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsElement.appendChild(optionElement);
+            });
+            
+            // Tampilkan jawaban yang benar jika sudah dipilih
+            if (answers[currentQuestion] !== null) {
+                const correctOption = document.querySelectorAll('.option')[question.answer];
+                correctOption.classList.add('correct');
+            }
+            
+            // Update progress
+            progressBar.style.width = `${(currentQuestion / questions.length) * 100}%`;
+            progressText.textContent = `Pertanyaan ${currentQuestion + 1} dari ${questions.length}`;
+            
+            // Update tombol
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = answers[currentQuestion] === null && !quizCompleted;
+            
+            // Ubah teks tombol di pertanyaan terakhir
+            if (currentQuestion === questions.length - 1 && !quizCompleted) {
+                nextBtn.textContent = 'Selesai';
+            } else {
+                nextBtn.textContent = 'Berikutnya';
+            }
+            
+            // Tampilkan penjelasan jika sudah dipilih jawaban
+            if (answers[currentQuestion] !== null) {
+                explanationElement.textContent = question.explanation;
+                explanationElement.style.display = 'block';
+            }
+        }
+        
+        // Memilih opsi
+        function selectOption(index) {
+            if (quizCompleted) return;
+            
+            // Simpan jawaban
+            answers[currentQuestion] = index;
+            
+            // Reload pertanyaan untuk menampilkan feedback benar/salah
+            loadQuestion();
+            
+            // Aktifkan tombol berikutnya
+            nextBtn.disabled = false;
+        }
+        
+        // Menampilkan hasil
+        function showResult() {
+            // Hitung skor
+            score = 0;
+            questions.forEach((question, index) => {
+                if (answers[index] === question.answer) {
+                    score++;
+                }
+            });
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            // Tampilkan hasil
+            quizBody.style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            scoreElement.textContent = `${percentage}%`;
+            scoreProgress.style.width = `${percentage}%`;
+            
+            // Berikan feedback
+            if (percentage >= 80) {
+                feedbackElement.textContent = "Luar biasa! Anda sangat memahami JavaScript.";
+            } else if (percentage >= 60) {
+                feedbackElement.textContent = "Bagus! Pengetahuan Anda tentang JavaScript cukup baik.";
+            } else if (percentage >= 40) {
+                feedbackElement.textContent = "Cukup baik! Dengan lebih banyak latihan Anda akan semakin mahir.";
+            } else {
+                feedbackElement.textContent = "Terus belajar! JavaScript bisa jadi rumit di awal.";
+            }
+            
+            // Hentikan timer
+            clearInterval(timer);
+            quizCompleted = true;
+        }
+        
+        // Update timer
+        function updateTimer() {
+            seconds++;
+            const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            timerElement.textContent = `${minutes}:${secs}`;
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else if (!quizCompleted) {
+                showResult();
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        });
+        
+        restartBtn.addEventListener('click', initQuiz);
+        
+        // Inisialisasi kuis
+        initQuiz();
+    </script>
+</body>
+</html>
